@@ -17,12 +17,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # 进入你的项目目录
-            cd /root/test 
+            cd /root/trae-test
             
             # 拉取最新代码
             # 如果是私有仓库，确保服务器上有拉取权限（配置了 Deploy Key 或 HTTPS 账号密码）
             git pull origin main
-            
+            cp /root/trae-test/*  /usr/share/nginx/html/
             # 执行部署命令（根据你的项目类型修改）
             # 例如前端：npm install && npm run build
             # 例如后端：pm2 restart app
