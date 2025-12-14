@@ -17,6 +17,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # 进入你的项目目录
+            mkdir /root/abc
             cd /root/trae-test
             
             # 拉取最新代码
