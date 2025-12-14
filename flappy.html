@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管道小鸟 - 游戏集合</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <a href="games.html" class="back-button">返回游戏选择</a>
+        
+        <h1 class="game-title">管道小鸟</h1>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <span>分数</span>
+                <span id="flappy-score" class="score-value">0</span>
+            </div>
+            <div class="score-item">
+                <span>最高分</span>
+                <span id="flappy-high-score" class="score-value">0</span>
+            </div>
+            <div class="score-item">
+                <span>速度</span>
+                <span id="flappy-speed" class="score-value">1x</span>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="flappyCanvas"></canvas>
+        </div>
+        
+        <div class="controls">
+            <button id="flappy-startButton" class="control-btn">开始游戏</button>
+            <button id="flappy-pauseButton" class="control-btn" disabled>暂停</button>
+            <button id="flappy-resetButton" class="control-btn">重置</button>
+            <button id="flappy-soundButton" class="control-btn">音效</button>
+        </div>
+        
+        <div class="game-instructions">
+            <div class="instruction-title">游戏说明</div>
+            <div class="instruction-content">点击屏幕或按空格键让小鸟向上飞，躲避管道，坚持时间越长分数越高。</div>
+            <div class="instruction-content">随着分数增加，游戏速度会逐渐加快。撞到管道或地面游戏结束。</div>
+        </div>
+        
+        <div class="mobile-flappy-controls">
+            <button id="flappy-tapButton" class="tap-btn">点击跳跃</button>
+        </div>
+    </div>
+
+    <script src="flappy.js"></script>
+</body>
+</html>

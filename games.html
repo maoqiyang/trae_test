@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏集合 - 炫酷贪吃蛇 & 管道小鸟</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .games-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .games-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .games-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00f5ff, #01cdfe, #ff2a6d, #b967ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s ease infinite;
+            text-shadow: 0 0 15px rgba(1, 205, 254, 0.5);
+        }
+        
+        .game-selection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+        }
+        
+        .game-card {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(1, 205, 254, 0.4);
+            border-color: rgba(1, 205, 254, 0.5);
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #00f5ff, #ff2a6d, #05ffa1, #b967ff);
+            z-index: -1;
+            animation: borderAnimation 4s linear infinite;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes borderAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .game-card-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-card-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #01cdfe;
+            text-shadow: 0 0 20px rgba(1, 205, 254, 0.7);
+        }
+        
+        .game-card-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .game-card-description {
+            font-size: 1rem;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        
+        .play-button {
+            padding: 12px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            background: rgba(1, 205, 254, 0.2);
+            color: #ffffff;
+            border: 2px solid rgba(1, 205, 254, 0.5);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .play-button:hover {
+            background: rgba(1, 205, 254, 0.5);
+            box-shadow: 0 0 20px rgba(1, 205, 254, 0.7);
+            transform: scale(1.05);
+        }
+        
+        .games-footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .games-title {
+                font-size: 2.2rem;
+            }
+            
+            .game-card {
+                max-width: 100%;
+                height: 250px;
+            }
+            
+            .game-card-icon {
+                font-size: 4rem;
+            }
+            
+            .game-card-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .games-title {
+                font-size: 1.8rem;
+            }
+            
+            .game-card {
+                height: 220px;
+            }
+            
+            .game-card-icon {
+                font-size: 3rem;
+            }
+            
+            .game-card-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="games-container">
+        <div class="games-header">
+            <h1 class="games-title">游戏集合</h1>
+            <p>选择你想玩的游戏，体验经典与乐趣的完美结合</p>
+        </div>
+        
+        <div class="game-selection">
+            <!-- 贪吃蛇游戏卡片 -->
+            <div class="game-card" id="snakeGameCard">
+                <div class="game-card-content">
+                    <div class="game-card-icon">🐍</div>
+                    <h2 class="game-card-title">炫酷贪吃蛇</h2>
+                    <p class="game-card-description">控制蛇吃食物，躲避障碍物，挑战高分记录</p>
+                    <button class="play-button" onclick="window.location.href='snake.html'">开始游戏</button>
+                </div>
+            </div>
+            
+            <!-- 管道小鸟游戏卡片 -->
+            <div class="game-card" id="flappyBirdCard">
+                <div class="game-card-content">
+                    <div class="game-card-icon">🐦</div>
+                    <h2 class="game-card-title">管道小鸟</h2>
+                    <p class="game-card-description">点击屏幕控制小鸟飞越管道，考验反应能力</p>
+                    <button class="play-button" onclick="window.location.href='flappy.html'">开始游戏</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="games-footer">
+            <p>&copy; 2023 游戏集合 - 炫酷贪吃蛇 & 管道小鸟</p>
+        </div>
+    </div>
+
+    <script>
+        // 为游戏卡片添加动画效果
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
