@@ -1,21 +1,29 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # 只有推送到 main 分支时才触发，根据需要修改
+
 jobs:
-  Explore-GitHub-Actions:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: 'echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."'
-      - run: 'echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"'
-      - run: 'echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."'
-      - name: Check out repository code
-        uses: actions/checkout@v5
-      - run: 'echo "💡 The ${{ github.repository }} repository has been cloned to the runner."'
-      - name: Create flag file
-        run: |
-          echo "第一次push" > ${{ github.workspace }}/flag
-      - run: 'echo "🖥️ Created flag file with content: 第一次push"'
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # 进入你的项目目录
+            cd /test 
+            
+            # 拉取最新代码
+            # 如果是私有仓库，确保服务器上有拉取权限（配置了 Deploy Key 或 HTTPS 账号密码）
+            git pull origin main
+            
+            # 执行部署命令（根据你的项目类型修改）
+            # 例如前端：npm install && npm run build
+            # 例如后端：pm2 restart app
+            echo "部署成功！"
